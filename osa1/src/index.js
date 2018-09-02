@@ -1,55 +1,49 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-const Otsikko = props => <h1>{props.nimi}</h1>;
-
-const Osa = props => (
-    <p>
-        {props.kuvaus} {props.maara}
-    </p>
-);
-
-const Sisalto = props => (
-    <div>
-        <Osa kuvaus={props.osat[0].nimi} maara={props.osat[0].tehtavia} />
-        <Osa kuvaus={props.osat[1].nimi} maara={props.osat[1].tehtavia} />
-        <Osa kuvaus={props.osat[2].nimi} maara={props.osat[2].tehtavia} />
-    </div>
-);
-
-const Yhteensa = props => (
-    <p>
-        {"yhteensa "}
-        {props.osat[0].tehtavia + props.osat[1].tehtavia + props.osat[2].tehtavia}
-        {" tehtavaa"}
-    </p>
-);
-
-const App = () => {
-    const kurssi = {
-        nimi: "Half Stack -sovelluskehitys",
-        osat: [
-            {
-                nimi: "Reactin perusteet",
-                tehtavia: 10
-            },
-            {
-                nimi: "Tiedonvälitys propseilla",
-                tehtavia: 7
-            },
-            {
-                nimi: "Komponenttien tila",
-                tehtavia: 14
-            }
-        ]
-    };
-
-    return (
-        <div>
-            <Otsikko nimi={kurssi.nimi} />
-            <Sisalto osat={kurssi.osat} />
-            <Yhteensa osat={kurssi.osat} />
-        </div>
-    );
-};
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            hyva: 1,
+            neutraali: 1,
+            huono: 1
+        };
+    }
+    render() {
+        return (
+            <div>
+                <h1>Anna palautetta</h1>
+                <button
+                    type="button"
+                    onClick={() => this.setState({ hyva: this.state.hyva + 1 })}
+                >
+                    hyvä
+                </button>
+                <button
+                    type="button"
+                    onClick={() => this.setState({ neutraali: this.state.neutraali + 1 })}
+                >
+                    neutraali
+                </button>
+                <button
+                    type="button"
+                    onClick={() => this.setState({ huono: this.state.huono + 1 })}
+                >
+                    huono
+                </button>
+                <h1>Statistiikka</h1>
+                <p>
+                    {"hyvä "} {this.state.hyva}
+                </p>
+                <p>
+                    {"neutraali "} {this.state.neutraali}
+                </p>
+                <p>
+                    {"huono "} {this.state.huono}
+                </p>
+            </div>
+        );
+    }
+}
 ReactDOM.render(<App />, document.getElementById("root"));
